@@ -1,0 +1,45 @@
+pkgbase = linux-besrv
+	pkgdesc = The Linux Kernel and modules, BlackEagle Server Edition
+	pkgver = 3.0.8
+	pkgrel = 2
+	url = http://www.kernel.org
+	arch = i686
+	arch = x86_64
+	license = GPL2
+	options = !strip
+	source = http://www.kernel.org/pub/linux/kernel/v3.0/linux-3.0.tar.bz2
+	source = config-3.0-server.i686
+	source = config-3.0-server.x86_64
+	source = linux-besrv.preset
+	source = http://www.kernel.org/pub/linux/kernel/v3.0/patch-3.0.8.gz
+	source = http://grsecurity.net/test/pax-linux-3.0.8-test41.patch
+	sha256sums = 64b0228b54ce39b0b2df086109a7b737cde58e3df4f779506ddcaccee90356a0
+	sha256sums = b79b0f14a3352c3bb457a7da685265504f0d6e4e321d974fd4e5a82ca7640b17
+	sha256sums = 7bd76bc5b5c4a21f0a778cccf2ade3ed0be4d05834a1b21bf781682fabc03d00
+	sha256sums = 64b2cf77834533ae7bac0c71936087857d8787d0e2a349037795eb7e42d23dde
+	sha256sums = e063823ca2f9deafe969b942823dc087909d1be07305edd4f3faadb19b0acf14
+	sha256sums = 1261781de11ce3474d92b57a8d674b6a1de37e6995465e2b7b7f6ac5d5676c30
+
+pkgname = linux-besrv
+	pkgdesc = The Linux Kernel and modules, BlackEagle Server Edition
+	install = linux-besrv.install
+	groups = base
+	depends = coreutils
+	depends = module-init-tools>=3.12-2
+	depends = mkinitcpio>=0.7
+	optdepends = crda: to set the correct wireless channels of your country
+	provides = linux
+	provides = linux-firmware
+	conflicts = linux-firmware
+	replaces = nouveau-drm
+	replaces = kernel26-slk
+	replaces = kernel26-besrv
+	replaces = linux-bemm
+	backup = etc/mkinitcpio.d/linux-besrv.preset
+
+pkgname = linux-besrv-headers
+	pkgdesc = Header files and scripts for building modules for linux-besrv
+	provides = linux-headers
+	replaces = kernel26-besrv-headers
+	replaces = linux-bemm-headers
+
