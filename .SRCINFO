@@ -1,7 +1,7 @@
 pkgbase = linux-besrv
 	pkgdesc = The Linux Kernel and modules, BlackEagle Server Edition
 	pkgver = 3.0.17
-	pkgrel = 1
+	pkgrel = 2
 	url = http://www.kernel.org
 	arch = i686
 	arch = x86_64
@@ -12,11 +12,13 @@ pkgbase = linux-besrv
 	source = config-3.0-server.x86_64
 	source = linux-besrv.preset
 	source = http://www.kernel.org/pub/linux/kernel/v3.x/patch-3.0.17.gz
+	source = proc-clean-up-and-fix-proc-pid-mem-handling.patch
 	sha256sums = ef5e8c2dedb20a6eab01bb379e9982cd7d47cf95bd87c9ee3e872272e85c24b6
 	sha256sums = ec4eb0d9427d1a6f758d7b4cde11258b1d390abd3c43a1d9eddc6948244eeef0
 	sha256sums = 0345cc7bb539c72938af1d2371ca0d4aca1dabb3c8b924f8030b47afe8a02ba8
 	sha256sums = 64b2cf77834533ae7bac0c71936087857d8787d0e2a349037795eb7e42d23dde
 	sha256sums = b1b8bb0537fcb6e0baba989ef8a91f7108de930aa727cde021f10aaa7ee153c4
+	sha256sums = bdea354373eaf9861b6c5e820324e04ca28d93923a260120b7af187a3baa0f4a
 
 pkgname = linux-besrv
 	pkgdesc = The Linux Kernel and modules, BlackEagle Server Edition
