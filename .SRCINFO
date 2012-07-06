@@ -1,7 +1,7 @@
 pkgbase = linux-besrv
 	pkgdesc = The Linux Kernel and modules, BlackEagle Server Edition
 	pkgver = 3.0.36
-	pkgrel = 2
+	pkgrel = 3
 	url = http://www.kernel.org
 	arch = i686
 	arch = x86_64
@@ -23,12 +23,11 @@ pkgname = linux-besrv
 	install = linux-besrv.install
 	groups = base
 	depends = coreutils
-	depends = kmod
-	depends = mkinitcpio>=0.7
+	depends = kmod>=9-2
+	depends = mkinitcpio>=0.9
 	optdepends = crda: to set the correct wireless channels of your country
 	optdepends = linux-firmware: when having some hardware needing special firmware
 	provides = linux
-	provides = linux-firmware
 	replaces = nouveau-drm
 	replaces = kernel26-slk
 	replaces = kernel26-besrv
