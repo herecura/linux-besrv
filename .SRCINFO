@@ -21,7 +21,6 @@ pkgbase = linux-besrv
 pkgname = linux-besrv
 	pkgdesc = The Linux Kernel and modules, BlackEagle Server Edition
 	install = linux-besrv.install
-	groups = base
 	depends = coreutils
 	depends = kmod>=9-2
 	depends = mkinitcpio>=0.9
