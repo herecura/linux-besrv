@@ -1,5 +1,5 @@
 pkgbase = linux-besrv
-	pkgver = 3.4.39
+	pkgver = 3.4.40
 	pkgrel = 1
 	url = http://www.kernel.org
 	arch = i686
@@ -10,12 +10,12 @@ pkgbase = linux-besrv
 	source = config-3.4-server.i686
 	source = config-3.4-server.x86_64
 	source = linux-besrv.preset
-	source = http://www.kernel.org/pub/linux/kernel/v3.x/patch-3.4.39.xz
+	source = http://www.kernel.org/pub/linux/kernel/v3.x/patch-3.4.40.xz
 	sha256sums = ff3dee6a855873d12487a6f4070ec2f7996d073019171361c955639664baa0c6
 	sha256sums = f684dda2e901bf593924395c5faaf52acea0e2bd9a9bc67d2d6e1004966ccad1
 	sha256sums = bb7d8acbefc8ca56e4de8c93ac760829da0cf85584847e61b84434d001bcfacb
 	sha256sums = 64b2cf77834533ae7bac0c71936087857d8787d0e2a349037795eb7e42d23dde
-	sha256sums = 10086ec3f8cedd30585e012577684f53b89d1782bf0879e29fc64d3b09cfe185
+	sha256sums = 48565c5f052aa09b5628135b04b107882ecf48d11629e3ed8e8d5a5642e90beb
 
 pkgname = linux-besrv
 	pkgdesc = The Linux Kernel and modules, BlackEagle Server Edition
