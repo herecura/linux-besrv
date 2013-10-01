@@ -1,5 +1,5 @@
 pkgbase = linux-besrv
-	pkgver = 3.10.13
+	pkgver = 3.10.14
 	pkgrel = 1
 	url = http://www.kernel.org
 	arch = i686
@@ -7,17 +7,20 @@ pkgbase = linux-besrv
 	license = GPL2
 	makedepends = bc
 	makedepends = kmod
+	makedepends = git
 	options = !strip
 	source = http://www.kernel.org/pub/linux/kernel/v3.x/linux-3.10.tar.xz
 	source = config-3.10-server.i686
 	source = config-3.10-server.x86_64
 	source = linux-besrv.preset
-	source = http://www.kernel.org/pub/linux/kernel/v3.x/patch-3.10.13.xz
+	source = linux-besrv-aufs3::git://git.code.sf.net/p/aufs/aufs3-standalone#branch=aufs3.10
+	source = http://www.kernel.org/pub/linux/kernel/v3.x/patch-3.10.14.xz
 	sha256sums = df27fa92d27a9c410bfe6c4a89f141638500d7eadcca5cce578954efc2ad3544
-	sha256sums = 2bb03834e65628cc1f9a44dfa46f84f427b478b5c5aaab0ab98fbddff7d826e1
-	sha256sums = bcf4b16171590ad7cceb23dd109911fac69e3f15f748d01f9783de28aaa61ed4
+	sha256sums = b50c223a6d1af5d77817df2a77ef1ec8850a5062fa17c59a3060c06a9a29bbec
+	sha256sums = b1ea9f515a7eca4b4ec238fd067eb79ddfd60bdc80e49678fdaca2ae438059ae
 	sha256sums = 64b2cf77834533ae7bac0c71936087857d8787d0e2a349037795eb7e42d23dde
-	sha256sums = cf8ec5b47c904f66f715e7ccd5051e15fe9f931fec03847a86d552caf8848be8
+	sha256sums = SKIP
+	sha256sums = fd5fac477f69b5e3c6506fa04f81157aa753538dca017ef23b26ca36e65df38e
 
 pkgname = linux-besrv
 	pkgdesc = The Linux Kernel and modules, BlackEagle Server Edition
