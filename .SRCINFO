@@ -1,5 +1,5 @@
 pkgbase = linux-besrv
-	pkgver = 3.10.14
+	pkgver = 3.10.15
 	pkgrel = 1
 	url = http://www.kernel.org
 	arch = i686
@@ -14,13 +14,13 @@ pkgbase = linux-besrv
 	source = config-3.10-server.x86_64
 	source = linux-besrv.preset
 	source = linux-besrv-aufs3::git://git.code.sf.net/p/aufs/aufs3-standalone#branch=aufs3.10
-	source = http://www.kernel.org/pub/linux/kernel/v3.x/patch-3.10.14.xz
+	source = http://www.kernel.org/pub/linux/kernel/v3.x/patch-3.10.15.xz
 	sha256sums = df27fa92d27a9c410bfe6c4a89f141638500d7eadcca5cce578954efc2ad3544
 	sha256sums = b50c223a6d1af5d77817df2a77ef1ec8850a5062fa17c59a3060c06a9a29bbec
 	sha256sums = b1ea9f515a7eca4b4ec238fd067eb79ddfd60bdc80e49678fdaca2ae438059ae
 	sha256sums = 64b2cf77834533ae7bac0c71936087857d8787d0e2a349037795eb7e42d23dde
 	sha256sums = SKIP
-	sha256sums = fd5fac477f69b5e3c6506fa04f81157aa753538dca017ef23b26ca36e65df38e
+	sha256sums = bb0108609a95ddfe5030938e45ad123445af4e29510a0b1bd8cede89de8c013b
 
 pkgname = linux-besrv
 	pkgdesc = The Linux Kernel and modules, BlackEagle Server Edition
