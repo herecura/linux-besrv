@@ -1,6 +1,6 @@
 pkgbase = linux-besrv
 	pkgver = 3.10.18
-	pkgrel = 1
+	pkgrel = 2
 	url = http://www.kernel.org
 	arch = i686
 	arch = x86_64
@@ -13,11 +13,15 @@ pkgbase = linux-besrv
 	source = config-3.10-server.x86_64
 	source = linux-besrv.preset
 	source = http://www.kernel.org/pub/linux/kernel/v3.x/patch-3.10.18.xz
+	source = grsecurity-2.9.1-3.10.18-unofficial.patch
+	source = fix-memory-map-for-PIE-applications.patch
 	sha256sums = df27fa92d27a9c410bfe6c4a89f141638500d7eadcca5cce578954efc2ad3544
-	sha256sums = 8b7ed69a1d13ec16897e5e8c2c9596768b5bc80bac19f5e9ab861c77870baf3f
-	sha256sums = 090b41205d29d6e4d44a348fb321d69118bc09b83c3d5bc75c84a2d32a34272b
+	sha256sums = 04e936c1ca6d21fe4030acd2555d7dc143ba222fcc14b50ec261d9cda19660cc
+	sha256sums = e7ad20ec181c6b74f3c543f595a0f6eb73e0693f8255eeb28b1c321fa47d7271
 	sha256sums = 64b2cf77834533ae7bac0c71936087857d8787d0e2a349037795eb7e42d23dde
 	sha256sums = 6fe9123444e4803d2bdec0f89a969024813bd54ba9114471589d1326deee8d6f
+	sha256sums = a7ed5e0ffe7efbfbd19596e7b3ba8b2d8703da48d7216b5ccd745d4ba038e480
+	sha256sums = 500f3577310be52e87b9fecdc2e9c4ca43210fd97d69089f9005d484563f74c7
 
 pkgname = linux-besrv
 	pkgdesc = The Linux Kernel and modules, BlackEagle Server Edition
