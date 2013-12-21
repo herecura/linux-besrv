@@ -1,0 +1,42 @@
+pkgbase = linux-besrv
+	pkgver = 3.10.24
+	pkgrel = 1.2
+	url = http://www.kernel.org
+	arch = i686
+	arch = x86_64
+	license = GPL2
+	makedepends = bc
+	makedepends = kmod
+	options = !strip
+	source = http://www.kernel.org/pub/linux/kernel/v3.x/linux-3.10.tar.xz
+	source = config-3.10-server.i686
+	source = config-3.10-server.x86_64
+	source = linux-besrv.preset
+	source = http://www.kernel.org/pub/linux/kernel/v3.x/patch-3.10.24.xz
+	sha256sums = df27fa92d27a9c410bfe6c4a89f141638500d7eadcca5cce578954efc2ad3544
+	sha256sums = 2240956c79ca3cf3efb5ce6dc9aed1aabf4e48d34d0d286c54ca7023fac16ca4
+	sha256sums = 8496c76992985cc93679a16879a272fff0f6435d2e34535eb5315dd1a5a050df
+	sha256sums = 64b2cf77834533ae7bac0c71936087857d8787d0e2a349037795eb7e42d23dde
+	sha256sums = 7c86e95d1e94350c47b509f070977fc75b1be3f30665cde86c15a9a110e6d296
+
+pkgname = linux-besrv
+	pkgdesc = The Linux Kernel and modules, BlackEagle Server Edition
+	install = linux-besrv.install
+	depends = coreutils
+	depends = kmod>=10
+	depends = mkinitcpio>=0.9
+	optdepends = crda: to set the correct wireless channels of your country
+	optdepends = linux-firmware: when having some hardware needing special firmware
+	provides = linux
+	replaces = nouveau-drm
+	replaces = kernel26-slk
+	replaces = kernel26-besrv
+	replaces = linux-bemm
+	backup = etc/mkinitcpio.d/linux-besrv.preset
+
+pkgname = linux-besrv-headers
+	pkgdesc = Header files and scripts for building modules for linux-besrv
+	provides = linux-headers
+	replaces = kernel26-besrv-headers
+	replaces = linux-bemm-headers
+
