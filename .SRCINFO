@@ -1,5 +1,5 @@
 pkgbase = linux-besrv
-	pkgver = 3.18.13
+	pkgver = 3.18.14
 	pkgrel = 1
 	url = http://www.kernel.org
 	arch = i686
@@ -13,14 +13,14 @@ pkgbase = linux-besrv
 	source = config-server.i686
 	source = config-server.x86_64
 	source = linux-besrv.preset
-	source = https://www.kernel.org/pub/linux/kernel/v3.x/patch-3.18.13.xz
-	source = https://www.kernel.org/pub/linux/kernel/v3.x/patch-3.18.13.sign
+	source = https://www.kernel.org/pub/linux/kernel/v3.x/patch-3.18.14.xz
+	source = https://www.kernel.org/pub/linux/kernel/v3.x/patch-3.18.14.sign
 	sha256sums = becc413cc9e6d7f5cc52a3ce66d65c3725bc1d1cc1001f4ce6c32b69eb188cbd
 	sha256sums = SKIP
 	sha256sums = 85a1aaaa94f7ad818e462e9f032e740649685461f27c335fc766846123635193
 	sha256sums = 2b0a243dce11e56e7a1bab53874b52cb5ee737341cc1147bc777cbc458ac37af
 	sha256sums = 64b2cf77834533ae7bac0c71936087857d8787d0e2a349037795eb7e42d23dde
-	sha256sums = d9191eb7fa47e95c81945e561cdf35bb12fcdd2bbf12f37f60533cbf57be429c
+	sha256sums = 488ac8f9fb1bcc5670d2222a4f382ca4e4950c4489bc5217c244b787d2ac8974
 	sha256sums = SKIP
 
 pkgname = linux-besrv
