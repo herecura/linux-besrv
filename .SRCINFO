@@ -1,6 +1,6 @@
 pkgbase = linux-besrv
 	pkgver = 4.1.6
-	pkgrel = 0.1
+	pkgrel = 1
 	url = http://www.kernel.org
 	arch = i686
 	arch = x86_64
