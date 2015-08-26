@@ -6,10 +6,10 @@
 _kernelname=-besrv
 pkgbase="linux$_kernelname"
 pkgname=("linux$_kernelname" "linux$_kernelname-headers")
-_basekernel=3.18
-_patchver=20
+_basekernel=4.1
+_patchver=6
 pkgver=$_basekernel
-pkgrel=1
+pkgrel=0.1
 arch=('i686' 'x86_64')
 license=('GPL2')
 makedepends=('bc' 'kmod')
@@ -31,10 +31,10 @@ source=(
     "linux$_kernelname.preset"
 )
 sha256sums=(
-    'becc413cc9e6d7f5cc52a3ce66d65c3725bc1d1cc1001f4ce6c32b69eb188cbd'
+    'caf51f085aac1e1cea4d00dbbf3093ead07b551fc07b31b2a989c05f8ea72d9f'
     'SKIP'
-    'b52af14aa30952ed58b9cd08550c55958c19c8a1ab57aa2098a02d986104ebf5'
-    '9f7cb93b57d0eb0db000de1d652a62964042e007ee0f704272d62e3d790b79c0'
+    '1e5d3c26ed6438eb163ebd2d3034178bf63395f6eed2d1a7e34c43a0faddbb47'
+    '08d654c60df926e54d5166e83cb64e22c09ac81a342fa29d265ff8135668d327'
     '64b2cf77834533ae7bac0c71936087857d8787d0e2a349037795eb7e42d23dde'
 )
 
@@ -47,7 +47,7 @@ if [ ${_patchver} -ne 0 ]; then
         "https://www.kernel.org/pub/linux/kernel/v3.x/${_patchname}.sign"
     )
     sha256sums=( "${sha256sums[@]}"
-        '00bbeee2ead1c67d5603b86b688e37e328d471bc15415e8c4e806fc1b246aacf'
+        '64e4deb16a279e233b0c91463b131bd0f3de6aabdb49efded8314bcf5dbfe070'
         'SKIP'
     )
 fi
@@ -149,9 +149,6 @@ package_linux-besrv() {
         'crda: to set the correct wireless channels of your country'
         'linux-firmware: when having some hardware needing special firmware'
     )
-    replaces=(
-        'linux3.14-besrv' 'linux3.12-besrv'
-    )
 
     install=$pkgname.install
 
@@ -212,7 +209,6 @@ package_linux-besrv() {
 package_linux-besrv-headers() {
     pkgdesc="Header files and scripts for building modules for linux$_kernelname"
     provides=('linux-headers')
-    replaces=("kernel26$_kernelname-headers" "linux-bemm-headers")
     install -dm755 "$pkgdir/usr/lib/modules/$_kernver"
     cd "$pkgdir/usr/lib/modules/$_kernver"
     ln -sf ../../../src/linux-$_kernver build
