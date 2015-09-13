@@ -7,7 +7,7 @@ _kernelname=-besrv
 pkgbase="linux$_kernelname"
 pkgname=("linux$_kernelname" "linux$_kernelname-headers")
 _basekernel=4.1
-_patchver=6
+_patchver=7
 pkgver=$_basekernel
 pkgrel=1
 arch=('i686' 'x86_64')
@@ -22,8 +22,8 @@ validpgpkeys=(
 )
 
 source=(
-    "https://www.kernel.org/pub/linux/kernel/v3.x/linux-${_basekernel}.tar.xz"
-    "https://www.kernel.org/pub/linux/kernel/v3.x/linux-${_basekernel}.tar.sign"
+    "https://www.kernel.org/pub/linux/kernel/v4.x/linux-${_basekernel}.tar.xz"
+    "https://www.kernel.org/pub/linux/kernel/v4.x/linux-${_basekernel}.tar.sign"
     # the main kernel config files
     "config-server.i686"
     "config-server.x86_64"
@@ -43,11 +43,11 @@ if [ ${_patchver} -ne 0 ]; then
     pkgver=$_basekernel.$_patchver
     _patchname="patch-$pkgver"
     source=( "${source[@]}"
-        "https://www.kernel.org/pub/linux/kernel/v3.x/${_patchname}.xz"
-        "https://www.kernel.org/pub/linux/kernel/v3.x/${_patchname}.sign"
+        "https://www.kernel.org/pub/linux/kernel/v4.x/${_patchname}.xz"
+        "https://www.kernel.org/pub/linux/kernel/v4.x/${_patchname}.sign"
     )
     sha256sums=( "${sha256sums[@]}"
-        '64e4deb16a279e233b0c91463b131bd0f3de6aabdb49efded8314bcf5dbfe070'
+        'bbd57fb48ea8e6971680818ba8722fd38ae419dca6047b852f10d33e5cd2ff6b'
         'SKIP'
     )
 fi
