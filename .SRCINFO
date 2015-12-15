@@ -1,5 +1,5 @@
 pkgbase = linux-besrv
-	pkgver = 4.1.14
+	pkgver = 4.1.15
 	pkgrel = 1
 	url = http://www.kernel.org
 	arch = i686
@@ -13,14 +13,14 @@ pkgbase = linux-besrv
 	source = config-server.i686
 	source = config-server.x86_64
 	source = linux-besrv.preset
-	source = https://www.kernel.org/pub/linux/kernel/v4.x/patch-4.1.14.xz
-	source = https://www.kernel.org/pub/linux/kernel/v4.x/patch-4.1.14.sign
+	source = https://www.kernel.org/pub/linux/kernel/v4.x/patch-4.1.15.xz
+	source = https://www.kernel.org/pub/linux/kernel/v4.x/patch-4.1.15.sign
 	sha256sums = caf51f085aac1e1cea4d00dbbf3093ead07b551fc07b31b2a989c05f8ea72d9f
 	sha256sums = SKIP
 	sha256sums = 6a9e044d5ae77870d5c8afdd296eba24a3f283acb9aabb0a66e3277e85e1e482
 	sha256sums = 408c9d5a68ab5117044b9dfce398ce20eaccc84a9aacb4c88ee5ff92c0813378
 	sha256sums = 64b2cf77834533ae7bac0c71936087857d8787d0e2a349037795eb7e42d23dde
-	sha256sums = c7903f02c7f1e00657d0b8f454f195ae1fe0ba3d9d4633d8e55c92a70d4a0619
+	sha256sums = 0ffca8557f1aa191da2f2260ad279c9cc858e6308a8af8a76f7ca3d3c0540344
 	sha256sums = SKIP
 
 pkgname = linux-besrv
