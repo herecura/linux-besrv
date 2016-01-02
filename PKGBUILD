@@ -9,7 +9,7 @@ pkgname=("linux$_kernelname" "linux$_kernelname-headers")
 _basekernel=4.1
 _patchver=15
 pkgver=$_basekernel
-pkgrel=1
+pkgrel=2
 arch=('i686' 'x86_64')
 license=('GPL2')
 makedepends=('bc' 'kmod')
@@ -220,42 +220,18 @@ package_linux-besrv-headers() {
     install -D -m644 .config \
         "$pkgdir/usr/src/linux-$_kernver/.config"
 
-    # copy files necessary for later builds, like nvidia and vmware
-    cp Module.symvers "$pkgdir/usr/src/linux-$_kernver"
-    cp -a scripts "$pkgdir/usr/src/linux-$_kernver"
-    # fix permissions on scripts dir
-    chmod og-w -R "$pkgdir/usr/src/linux-$_kernver/scripts"
-    mkdir -p "$pkgdir/usr/src/linux-$_kernver/.tmp_versions"
-
-    mkdir -p "$pkgdir/usr/src/linux-$_kernver/arch/$KARCH/kernel"
-
-    cp arch/$KARCH/Makefile "$pkgdir/usr/src/linux-$_kernver/arch/$KARCH/"
-    if [ "$CARCH" = "i686" ]; then
-        cp arch/$KARCH/Makefile_32.cpu "$pkgdir/usr/src/linux-$_kernver/arch/$KARCH/"
-    fi
-    cp arch/$KARCH/kernel/asm-offsets.s "$pkgdir/usr/src/linux-$_kernver/arch/$KARCH/kernel/"
+    find . -path './include/*' -prune -o -path './scripts/*' -prune \
+        -o -type f \( -name 'Makefile*' -o -name 'Kconfig*' \
+        -o -name 'Kbuild*' -o -name '*.sh' -o -name '*.pl' \
+        -o -name '*.lds' \) | bsdcpio -pdm "$pkgdir/usr/src/linux-$_kernver"
+    cp -a scripts include "$pkgdir/usr/src/linux-$_kernver"
+    find $(find arch/$KARCH -name include -type d -print) -type f \
+        | bsdcpio -pdm "$pkgdir/usr/src/linux-$_kernver"
+    install -Dm644 Module.symvers "$pkgdir/usr/src/linux-$_kernver"
 
     # add docbook makefile
     install -D -m644 Documentation/DocBook/Makefile \
         "$pkgdir/usr/src/linux-$_kernver/Documentation/DocBook/Makefile"
-
-    # add config
-    for config in `find ./include/config -size +1c -type f`; do
-        mkdir -p "$pkgdir/usr/src/linux-$_kernver/$(dirname $config)"
-        cp -a $config "$pkgdir/usr/src/linux-$_kernver/$(dirname $config)"
-    done
-
-    # add headers
-    for header in `find -size +1c -name '*.h'`; do
-        mkdir -p "$pkgdir/usr/src/linux-$_kernver/$(dirname $header)"
-        cp -a $header "$pkgdir/usr/src/linux-$_kernver/$(dirname $header)"
-    done
-
-    # copy in Kconfig files
-    for i in `find . -name "Kconfig*"`; do
-        mkdir -p "$pkgdir/usr/src/linux-$_kernver/$(echo $i | sed 's|/Kconfig.*||')"
-        cp $i "$pkgdir/usr/src/linux-$_kernver/$i"
-    done
 
     # strip scripts directory
     find "$pkgdir/usr/src/linux-$_kernver/scripts" -type f -perm -u+w 2>/dev/null | while read binary ; do
@@ -274,6 +250,4 @@ package_linux-besrv-headers() {
 
     chown -R root:root "$pkgdir/usr/src/linux-$_kernver"
     find "$pkgdir/usr/src/linux-$_kernver" -type d -exec chmod 755 {} \;
-    # remove unneeded architectures
-    rm -rf "$pkgdir/usr/src/linux-$_kernver/arch"/{alpha,arm,arm26,avr32,blackfin,cris,frv,h8300,ia64,m32r,m68k,m68knommu,mips,microblaze,mn10300,parisc,powerpc,ppc,s390,score,sh,sh64,sparc,sparc64,tile,um,v850,xtensa}
 }
