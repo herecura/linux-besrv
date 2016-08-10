@@ -1,0 +1,7 @@
+update_pkgver="$(wget -q -O- https://www.kernel.org | sed -nr "s/.*linux-(${_basekernel}.*)\.tar\..z.*/\1/p" | head -n1)"
+update__patchver=$(echo $update_pkgver | sed 's/[0-9]*\.[0-9]*//')
+if [ "" != "$update__patchver" ]; then
+    update__patchver=$(echo "$update__patchver" | sed -s 's/\.//')
+else
+    update__patchver=0
+fi
