@@ -7,8 +7,8 @@ _kernelname=-besrv
 pkgbase="linux$_kernelname"
 pkgname=("linux$_kernelname" "linux$_kernelname-headers")
 _basekernel=4.4
-_patchver=17
-pkgver=4.4.17
+_patchver=18
+pkgver=4.4.18
 pkgrel=1
 arch=('i686' 'x86_64')
 license=('GPL2')
@@ -35,7 +35,7 @@ sha256sums=('401d7c8fef594999a460d10c72c5a94e9c2e1022f16795ec51746b0d165418b2'
             'e64fd39391286177560700b26ecdd733135fdc737a9f3fc70e39c6a312dad054'
             '43169672980d57445cb139f74f315179223b1fbe8f451ce112de703700976496'
             '64b2cf77834533ae7bac0c71936087857d8787d0e2a349037795eb7e42d23dde'
-            '294960bddb6dcef7c80d80aa13b7d1fb9c4555975f16196b9dddb05728436604'
+            'e9b76a27653a4a16d4e641e8402c325b051666af5da0def60f26d9cda9b8f60d'
             'SKIP')
 
 # revision patches
