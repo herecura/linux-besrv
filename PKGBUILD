@@ -7,8 +7,7 @@ _kernelname=-besrv
 pkgbase="linux$_kernelname"
 pkgname=("linux$_kernelname" "linux$_kernelname-headers")
 _basekernel=4.4
-_patchver=19
-pkgver=4.4.19
+_patchver=20
 pkgrel=1
 arch=('i686' 'x86_64')
 license=('GPL2')
@@ -30,13 +29,6 @@ source=(
     # standard config files for mkinitcpio ramdisk
     "linux$_kernelname.preset"
 )
-sha256sums=('401d7c8fef594999a460d10c72c5a94e9c2e1022f16795ec51746b0d165418b2'
-            'SKIP'
-            'e64fd39391286177560700b26ecdd733135fdc737a9f3fc70e39c6a312dad054'
-            '43169672980d57445cb139f74f315179223b1fbe8f451ce112de703700976496'
-            '64b2cf77834533ae7bac0c71936087857d8787d0e2a349037795eb7e42d23dde'
-            '61b34a8ab4ba778c50a6fb04471cb34192e179db68440d81b12694e45dea00fc'
-            'SKIP')
 
 # revision patches
 if [ ${_patchver} -ne 0 ]; then
@@ -46,6 +38,8 @@ if [ ${_patchver} -ne 0 ]; then
         "https://www.kernel.org/pub/linux/kernel/v4.x/${_patchname}.xz"
         "https://www.kernel.org/pub/linux/kernel/v4.x/${_patchname}.sign"
     )
+else
+    pkgver=$_basekernel
 fi
 
 # extra patches
@@ -58,6 +52,14 @@ if [ ${#_extrapatches[@]} -ne 0 ]; then
         "${_extrapatches[@]}"
     )
 fi
+
+sha256sums=('401d7c8fef594999a460d10c72c5a94e9c2e1022f16795ec51746b0d165418b2'
+            'SKIP'
+            'e64fd39391286177560700b26ecdd733135fdc737a9f3fc70e39c6a312dad054'
+            '43169672980d57445cb139f74f315179223b1fbe8f451ce112de703700976496'
+            '64b2cf77834533ae7bac0c71936087857d8787d0e2a349037795eb7e42d23dde'
+            'da9d7d3548070bc4a333786778f628eaa2a76e10f21a34567f591834a9e87d27'
+            'SKIP')
 
 prepare() {
     cd "$srcdir/linux-$_basekernel"
