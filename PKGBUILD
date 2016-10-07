@@ -7,7 +7,7 @@ _kernelname=-besrv
 pkgbase="linux$_kernelname"
 pkgname=("linux$_kernelname" "linux$_kernelname-headers")
 _basekernel=4.4
-_patchver=23
+_patchver=24
 pkgrel=1
 arch=('i686' 'x86_64')
 license=('GPL2')
@@ -58,7 +58,7 @@ sha256sums=('401d7c8fef594999a460d10c72c5a94e9c2e1022f16795ec51746b0d165418b2'
             'e64fd39391286177560700b26ecdd733135fdc737a9f3fc70e39c6a312dad054'
             '43169672980d57445cb139f74f315179223b1fbe8f451ce112de703700976496'
             '64b2cf77834533ae7bac0c71936087857d8787d0e2a349037795eb7e42d23dde'
-            '0592b15bb78879ffa72933c71b8b11787a7b4560ea33b8ba8b421df034ee74c8'
+            '10a083229253e7f781496a077913d8666c156c6900f4f735542fb15030339eef'
             'SKIP')
 
 prepare() {
