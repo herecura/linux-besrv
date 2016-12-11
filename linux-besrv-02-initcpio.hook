@@ -1,0 +1,11 @@
+[Trigger]
+Type = File
+Operation = Install
+Operation = Upgrade
+Target = usr/lib/modules/*-BESRV-external/*
+Target = usr/lib/initcpio/*
+
+[Action]
+Description = Regenerate initcpio for linux-besrv
+When = PostTransaction
+Exec = /usr/bin/mkinitcpio -p linux-besrv

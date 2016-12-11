@@ -8,7 +8,7 @@ pkgbase="linux$_kernelname"
 pkgname=("linux$_kernelname" "linux$_kernelname-headers")
 _basekernel=4.4
 _patchver=38
-pkgrel=1
+pkgrel=2
 arch=('i686' 'x86_64')
 license=('GPL2')
 makedepends=('bc' 'kmod')
@@ -24,10 +24,14 @@ source=(
     "https://www.kernel.org/pub/linux/kernel/v4.x/linux-${_basekernel}.tar.xz"
     "https://www.kernel.org/pub/linux/kernel/v4.x/linux-${_basekernel}.tar.sign"
     # the main kernel config files
-    "config-server.i686"
-    "config-server.x86_64"
+    'config-server.i686'
+    'config-server.x86_64'
     # standard config files for mkinitcpio ramdisk
     "linux$_kernelname.preset"
+    # pacman hooks
+    'linux-besrv-01-depmod.hook'
+    'linux-besrv-02-initcpio.hook'
+    'linux-besrv-remove.hook'
 )
 
 # revision patches
@@ -58,6 +62,9 @@ sha256sums=('401d7c8fef594999a460d10c72c5a94e9c2e1022f16795ec51746b0d165418b2'
             'e64fd39391286177560700b26ecdd733135fdc737a9f3fc70e39c6a312dad054'
             '43169672980d57445cb139f74f315179223b1fbe8f451ce112de703700976496'
             '64b2cf77834533ae7bac0c71936087857d8787d0e2a349037795eb7e42d23dde'
+            'd71ee2f7757b52dec72f8e3620d9090f33e1526b7cfce41299e1140c5e6493ad'
+            'a1099b98f11f37d6e5896a869fcc50f586ea51992b0b2d142a929bcdd1bc9f89'
+            '0712ed50138c1d7f70c1f4276fcdb172cc50f78b52aa86edd5e7bbbe130968ce'
             '48ec169c7adda820973b3cb9c4c91c72bb69c86f530d149065491a20ef0c4057'
             'SKIP')
 
@@ -196,6 +203,11 @@ package_linux-besrv() {
 
     # Now we call depmod...
     depmod -b "$pkgdir" -F System.map "$_kernver"
+
+    # install pacman hooks
+    install -Dm644 "$srcdir/linux-besrv-01-depmod.hook" "$pkgdir/usr/share/libalpm/hooks/linux-besrv-01-depmod.hook"
+    install -Dm644 "$srcdir/linux-besrv-02-initcpio.hook" "$pkgdir/usr/share/libalpm/hooks/linux-besrv-02-initcpio.hook"
+    install -Dm644 "$srcdir/linux-besrv-remove.hook" "$pkgdir/usr/share/libalpm/hooks/linux-besrv-remove.hook"
 
     # move module tree /lib -> /usr/lib
     mv "$pkgdir/lib" "$pkgdir/usr/"

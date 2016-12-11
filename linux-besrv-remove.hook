@@ -1,0 +1,9 @@
+[Trigger]
+Type = File
+Operation = Remove
+Target = usr/lib/modules/*-BESRV-external/*
+
+[Action]
+Description = remove initramfs files for linux-besrv
+When = PreTransaction
+Exec = /usr/bin/rm /boot/initramfs-besrv.img /boot/initramfs-besrv-fallback.img
