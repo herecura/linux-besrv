@@ -6,8 +6,8 @@
 _kernelname=-besrv
 pkgbase="linux$_kernelname"
 pkgname=("linux$_kernelname" "linux$_kernelname-headers")
-_basekernel=4.4
-_patchver=53
+_basekernel=4.9
+_patchver=14
 pkgrel=1
 arch=('i686' 'x86_64')
 license=('GPL2')
@@ -57,15 +57,15 @@ if [ ${#_extrapatches[@]} -ne 0 ]; then
     )
 fi
 
-sha256sums=('401d7c8fef594999a460d10c72c5a94e9c2e1022f16795ec51746b0d165418b2'
+sha256sums=('029098dcffab74875e086ae970e3828456838da6e0ba22ce3f64ef764f3d7f1a'
             'SKIP'
-            'e64fd39391286177560700b26ecdd733135fdc737a9f3fc70e39c6a312dad054'
-            '43169672980d57445cb139f74f315179223b1fbe8f451ce112de703700976496'
+            'ef0f9b81de91ae3bcc1cabafc7c030c96f96340d01817a7d5b491fc1cd0fe390'
+            'd1c0d66d6c6e5c6be6622f48b24e391b278c0beecc7f0df572e6e95e3929cc27'
             '64b2cf77834533ae7bac0c71936087857d8787d0e2a349037795eb7e42d23dde'
             'd71ee2f7757b52dec72f8e3620d9090f33e1526b7cfce41299e1140c5e6493ad'
             'a1099b98f11f37d6e5896a869fcc50f586ea51992b0b2d142a929bcdd1bc9f89'
             'a296fb5156e2aaae4eb7d43bc6eea3cbf09f92e5843ce52a7be8b31f9add19f2'
-            '51e09e851c00f42e04f27a1848a06e93e9de9abd22da0408da4745b6d2edbbdb'
+            '056282412144bdb8bb1d33a5b22a5605ed836a8061dfd65926e25ba71119d518'
             'SKIP')
 
 prepare() {
@@ -119,7 +119,6 @@ prepare() {
 build() {
     cd "$srcdir/linux-$_basekernel"
 
-    # get kernel version
     msg2 "prepare"
     make prepare
     # load configuration
@@ -204,13 +203,13 @@ package_linux-besrv() {
     # Now we call depmod...
     depmod -b "$pkgdir" -F System.map "$_kernver"
 
+    # move module tree /lib -> /usr/lib
+    mv "$pkgdir/lib" "$pkgdir/usr/"
+
     # install pacman hooks
     install -Dm644 "$srcdir/linux-besrv-01-depmod.hook" "$pkgdir/usr/share/libalpm/hooks/linux-besrv-01-depmod.hook"
     install -Dm644 "$srcdir/linux-besrv-02-initcpio.hook" "$pkgdir/usr/share/libalpm/hooks/linux-besrv-02-initcpio.hook"
     install -Dm644 "$srcdir/linux-besrv-remove.hook" "$pkgdir/usr/share/libalpm/hooks/linux-besrv-remove.hook"
-
-    # move module tree /lib -> /usr/lib
-    mv "$pkgdir/lib" "$pkgdir/usr/"
 }
 
 package_linux-besrv-headers() {
