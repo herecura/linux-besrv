@@ -8,7 +8,7 @@ pkgbase="linux$_kernelname"
 pkgname=("linux$_kernelname" "linux$_kernelname-headers")
 _basekernel=4.9
 _patchver=33
-pkgrel=1
+pkgrel=2
 arch=('i686' 'x86_64')
 license=('GPL2')
 makedepends=('bc' 'kmod')
@@ -48,8 +48,7 @@ fi
 
 # extra patches
 _extrapatches=(
-)
-_extrapatchessums=(
+    'https://git.kernel.org/pub/scm/linux/kernel/git/stable/stable-queue.git/plain/queue-4.9/mm-larger-stack-guard-gap-between-vmas.patch'
 )
 if [ ${#_extrapatches[@]} -ne 0 ]; then
     source=( "${source[@]}"
@@ -57,16 +56,17 @@ if [ ${#_extrapatches[@]} -ne 0 ]; then
     )
 fi
 
-sha256sums=('029098dcffab74875e086ae970e3828456838da6e0ba22ce3f64ef764f3d7f1a'
+sha512sums=('bf67ff812cc3cb7e5059e82cc5db0d9a7c5637f7ed9a42e4730c715bf7047c81ed3a571225f92a33ef0b6d65f35595bc32d773356646df2627da55e9bc7f1f1a'
             'SKIP'
-            'ba830dee7ef7bae41bf8ebc34dd7914c41c54add010096344d0a276e4ab3a935'
-            'ae10aaaa579b7f65e6d73f44bf317c2ce96d6ce5d7859326b55bd9507bb85d4e'
-            '64b2cf77834533ae7bac0c71936087857d8787d0e2a349037795eb7e42d23dde'
-            'd71ee2f7757b52dec72f8e3620d9090f33e1526b7cfce41299e1140c5e6493ad'
-            'a1099b98f11f37d6e5896a869fcc50f586ea51992b0b2d142a929bcdd1bc9f89'
-            'a296fb5156e2aaae4eb7d43bc6eea3cbf09f92e5843ce52a7be8b31f9add19f2'
-            '939006459d6bd9ac4374956353b795a746bd4a6b357eea1e349cd84638713ad2'
-            'SKIP')
+            'c82d0a88a2a6a591dada0d2da20f2d77242f93a0a5f94050baa175eca6eddf47cb11877f2f5073e2a7f43d2eaad1da1601b76b568ee15678fea5ab9f4e193f8d'
+            '6400dff5d8d85a3ec73bae5113e1c6b9642ca7bce1a7491a5938b8f728368ed8d5a0ec4764bfcb3c1ca757ff64ed51f7d2047849c33e0f89d0dd2dd16e3322eb'
+            '75f580633a48a15efa83e44a2e091ba33e1d615107eb192349b7ff3ea6aec3230f4206795747e238fe015d511125ab78b58571904577dd4eb687bba937ad95a6'
+            '4bd79cd8b10c30a80c6b4c8b4ff173803a69e5af20b4d56cad8e5275547e7d4c5918522fb8e4a71c05a1247c68a2201af389526086b6d77965ad0bd18c95da83'
+            'f03250e32620071f27d33dbda859958ecbb206f2723a3c14f4f41734435011c87b4809bda558d687393d9fd2665531904f8963f1038f0bf8fb5598adc1d0518e'
+            'e7ba6fcf986022ec56614b1acedf1e6ad723ffea12f8bf73741eef317da59f57b9df83e1800ea3e9b2d9e25207e6ac7fe4286927602d82435e1aa6525ceed0dc'
+            'fed92167db05cbdd5cae686f3656c8cf7ada3a87099f2d26782cb904f6f73336b2ad9263baa3a820a5fd7bcd72650bcc29905ca7d3b60c0541ab2b34a2edda9b'
+            'SKIP'
+            '648a5431dfcf3d35f9bcac1a03f4bf879c79393fb8ffbaf3b8e5f516cce156d80bab32a5de8e0c059f623e91b847d1ee11f425784fc08a94096b7b444d0f8cfd')
 
 prepare() {
     cd "$srcdir/linux-$_basekernel"
