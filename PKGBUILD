@@ -7,8 +7,8 @@ _kernelname=-besrv
 pkgbase="linux$_kernelname"
 pkgname=("linux$_kernelname" "linux$_kernelname-headers")
 _basekernel=4.9
-_patchver=33
-pkgrel=3
+_patchver=34
+pkgrel=1
 arch=('i686' 'x86_64')
 license=('GPL2')
 makedepends=('bc' 'kmod')
@@ -48,8 +48,6 @@ fi
 
 # extra patches
 _extrapatches=(
-    'https://git.kernel.org/pub/scm/linux/kernel/git/stable/stable-queue.git/plain/queue-4.9/mm-larger-stack-guard-gap-between-vmas.patch'
-    'https://git.kernel.org/pub/scm/linux/kernel/git/stable/stable-queue.git/plain/queue-4.9/mm-fix-new-crash-in-unmapped_area_topdown.patch'
 )
 if [ ${#_extrapatches[@]} -ne 0 ]; then
     source=( "${source[@]}"
@@ -65,10 +63,8 @@ sha512sums=('bf67ff812cc3cb7e5059e82cc5db0d9a7c5637f7ed9a42e4730c715bf7047c81ed3
             '4bd79cd8b10c30a80c6b4c8b4ff173803a69e5af20b4d56cad8e5275547e7d4c5918522fb8e4a71c05a1247c68a2201af389526086b6d77965ad0bd18c95da83'
             'f03250e32620071f27d33dbda859958ecbb206f2723a3c14f4f41734435011c87b4809bda558d687393d9fd2665531904f8963f1038f0bf8fb5598adc1d0518e'
             'e7ba6fcf986022ec56614b1acedf1e6ad723ffea12f8bf73741eef317da59f57b9df83e1800ea3e9b2d9e25207e6ac7fe4286927602d82435e1aa6525ceed0dc'
-            'fed92167db05cbdd5cae686f3656c8cf7ada3a87099f2d26782cb904f6f73336b2ad9263baa3a820a5fd7bcd72650bcc29905ca7d3b60c0541ab2b34a2edda9b'
-            'SKIP'
-            '648a5431dfcf3d35f9bcac1a03f4bf879c79393fb8ffbaf3b8e5f516cce156d80bab32a5de8e0c059f623e91b847d1ee11f425784fc08a94096b7b444d0f8cfd'
-            'b0e49ecaff9834afbc221a5cf771b81647a2154f3a1745d1f7c15ba565ef385b20a18facaebd5c190eed707982a6ee2e419c7133b5062fe53dbf71553ac89472')
+            '291df1857d2a25abbca01cb51a301b0ad13c71f43ece87fb30f29e5a30df2cac3ffaec1201a70e577511c4df3f34617044ec32fcd537807db6d756856d137a14'
+            'SKIP')
 
 prepare() {
     cd "$srcdir/linux-$_basekernel"
