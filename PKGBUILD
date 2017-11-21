@@ -7,7 +7,7 @@ _kernelname=-besrv
 pkgbase="linux$_kernelname"
 pkgname=("linux$_kernelname" "linux$_kernelname-headers")
 _basekernel=4.9
-_patchver=63
+_patchver=64
 pkgrel=1
 arch=('x86_64')
 license=('GPL2')
@@ -61,7 +61,7 @@ sha512sums=('bf67ff812cc3cb7e5059e82cc5db0d9a7c5637f7ed9a42e4730c715bf7047c81ed3
             '4bd79cd8b10c30a80c6b4c8b4ff173803a69e5af20b4d56cad8e5275547e7d4c5918522fb8e4a71c05a1247c68a2201af389526086b6d77965ad0bd18c95da83'
             'f03250e32620071f27d33dbda859958ecbb206f2723a3c14f4f41734435011c87b4809bda558d687393d9fd2665531904f8963f1038f0bf8fb5598adc1d0518e'
             'e7ba6fcf986022ec56614b1acedf1e6ad723ffea12f8bf73741eef317da59f57b9df83e1800ea3e9b2d9e25207e6ac7fe4286927602d82435e1aa6525ceed0dc'
-            '51fa0a5c19989be5326130421afe29aeb22bc7be65adbe882fc32b0b22c414e8631e3e7cefb6fecfc23545851a19211f5feddd7196934f5c84ec507b4f2984c0'
+            '5fbf5d204fffddcfb2ad89f55254c49c57490936547790e46bcf46c81f209163cdc018d9c9211ec4d7fd6b8ca668eb3c38c06e5b6856c6eee49564bd33ec22fe'
             'SKIP')
 
 prepare() {
