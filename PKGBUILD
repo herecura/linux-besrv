@@ -6,8 +6,8 @@
 _kernelname=-besrv
 pkgbase="linux$_kernelname"
 pkgname=("linux$_kernelname" "linux$_kernelname-headers")
-_basekernel=4.9
-_patchver=66
+_basekernel=4.14
+_patchver=3
 pkgrel=1
 arch=('x86_64')
 license=('GPL2')
@@ -31,6 +31,8 @@ source=(
     'linux-besrv-01-depmod.hook'
     'linux-besrv-02-initcpio.hook'
     'linux-besrv-remove.hook'
+    # sysctl config
+    'sysctl-linux-besrv.conf'
 )
 
 # revision patches
@@ -54,14 +56,15 @@ if [ ${#_extrapatches[@]} -ne 0 ]; then
     )
 fi
 
-sha512sums=('bf67ff812cc3cb7e5059e82cc5db0d9a7c5637f7ed9a42e4730c715bf7047c81ed3a571225f92a33ef0b6d65f35595bc32d773356646df2627da55e9bc7f1f1a'
+sha512sums=('77e43a02d766c3d73b7e25c4aafb2e931d6b16e870510c22cef0cdb05c3acb7952b8908ebad12b10ef982c6efbe286364b1544586e715cf38390e483927904d8'
             'SKIP'
-            '6400dff5d8d85a3ec73bae5113e1c6b9642ca7bce1a7491a5938b8f728368ed8d5a0ec4764bfcb3c1ca757ff64ed51f7d2047849c33e0f89d0dd2dd16e3322eb'
+            'e20dc25f4e46c02f638d51411cbf3b4bbe2e0baaf1ec8c5f034a4942737b156bbf373bf9501132581b6daf48fb3e30cbf21fb7fae0aafa3a2dc67027e08f2757'
             '75f580633a48a15efa83e44a2e091ba33e1d615107eb192349b7ff3ea6aec3230f4206795747e238fe015d511125ab78b58571904577dd4eb687bba937ad95a6'
             '4bd79cd8b10c30a80c6b4c8b4ff173803a69e5af20b4d56cad8e5275547e7d4c5918522fb8e4a71c05a1247c68a2201af389526086b6d77965ad0bd18c95da83'
             'f03250e32620071f27d33dbda859958ecbb206f2723a3c14f4f41734435011c87b4809bda558d687393d9fd2665531904f8963f1038f0bf8fb5598adc1d0518e'
             'e7ba6fcf986022ec56614b1acedf1e6ad723ffea12f8bf73741eef317da59f57b9df83e1800ea3e9b2d9e25207e6ac7fe4286927602d82435e1aa6525ceed0dc'
-            '3c99b3043333bf673a1795ef314a0601ca0d5e4521786798677ae3978d2e6ffc2d820caec71dac09dd6f1b0cfaee2ac363e809d0e567edb764b843d33d35edfa'
+            'cc249aa48d362a570ec7e16fa9760552fd5fcc3615a29c154b2ee97e51c3c1c1c7449efd031bca59a7b65c473a2afaff075a043dbcb0fbf4a600c83cc9cb8f83'
+            '36a08a4c1c93c4fefb95273f3bfe4cac724d8e7c4f90d6e42a11c3afbbdd35b537f3380985a730c9aca491359f9bbdc4747ac444dd6b2625443c28df285cf74a'
             'SKIP')
 
 prepare() {
@@ -201,6 +204,9 @@ package_linux-besrv() {
     install -Dm644 "$srcdir/linux-besrv-01-depmod.hook" "$pkgdir/usr/share/libalpm/hooks/linux-besrv-01-depmod.hook"
     install -Dm644 "$srcdir/linux-besrv-02-initcpio.hook" "$pkgdir/usr/share/libalpm/hooks/linux-besrv-02-initcpio.hook"
     install -Dm644 "$srcdir/linux-besrv-remove.hook" "$pkgdir/usr/share/libalpm/hooks/linux-besrv-remove.hook"
+
+    # install sysctl tweaks
+    install -Dm644 "$srcdir/sysctl-linux-besrv.conf" "$pkgdir/usr/lib/sysctl.d/60-linux-besrv.conf"
 }
 
 package_linux-besrv-headers() {
@@ -225,10 +231,6 @@ package_linux-besrv-headers() {
     find $(find arch/$KARCH -name include -type d -print) -type f \
         | bsdcpio -pdm "$pkgdir/usr/src/linux-$_kernver"
     install -Dm644 Module.symvers "$pkgdir/usr/src/linux-$_kernver"
-
-    # add docbook makefile
-    install -D -m644 Documentation/DocBook/Makefile \
-        "$pkgdir/usr/src/linux-$_kernver/Documentation/DocBook/Makefile"
 
     # strip scripts directory
     find "$pkgdir/usr/src/linux-$_kernver/scripts" -type f -perm -u+w 2>/dev/null | while read binary ; do
