@@ -8,7 +8,7 @@ pkgbase="linux$_kernelname"
 pkgname=("linux$_kernelname" "linux$_kernelname-headers")
 _basekernel=4.14
 _patchver=9
-pkgrel=2
+pkgrel=3
 arch=('x86_64')
 license=('GPL2')
 makedepends=('bc' 'kmod')
@@ -231,6 +231,10 @@ package_linux-besrv-headers() {
     find $(find arch/$KARCH -name include -type d -print) -type f \
         | bsdcpio -pdm "$pkgdir/usr/src/linux-$_kernver"
     install -Dm644 Module.symvers "$pkgdir/usr/src/linux-$_kernver"
+
+    # add objtool for external module building and enabled VALIDATION_STACK option
+    install -Dm755 tools/objtool/objtool \
+        "$pkgdir/usr/src/linux-$_kernver/tools/objtool/objtool"
 
     # strip scripts directory
     find "$pkgdir/usr/src/linux-$_kernver/scripts" -type f -perm -u+w 2>/dev/null | while read binary ; do
