@@ -7,8 +7,8 @@ _kernelname=-besrv
 pkgbase="linux$_kernelname"
 pkgname=("linux$_kernelname" "linux$_kernelname-headers")
 _basekernel=4.14
-_patchver=11
-pkgrel=2
+_patchver=12
+pkgrel=1
 arch=('x86_64')
 license=('GPL2')
 makedepends=('bc' 'kmod')
@@ -49,7 +49,6 @@ fi
 
 # extra patches
 _extrapatches=(
-    'x86-cpu-x86-pti-Do-not-enable-PTI-on-AMD-processors.patch'
 )
 if [ ${#_extrapatches[@]} -ne 0 ]; then
     source=( "${source[@]}"
@@ -65,9 +64,8 @@ sha512sums=('77e43a02d766c3d73b7e25c4aafb2e931d6b16e870510c22cef0cdb05c3acb7952b
             'f03250e32620071f27d33dbda859958ecbb206f2723a3c14f4f41734435011c87b4809bda558d687393d9fd2665531904f8963f1038f0bf8fb5598adc1d0518e'
             'e7ba6fcf986022ec56614b1acedf1e6ad723ffea12f8bf73741eef317da59f57b9df83e1800ea3e9b2d9e25207e6ac7fe4286927602d82435e1aa6525ceed0dc'
             'f1b90c82b6f7b877ffb9bc725776bbb3961559d84258435dc9eb0bff13f3e650dd98c87bbdf0f64e257d8a9876fd901d4b739b0b29d1197fdde5c8261fd446eb'
-            'dbf5488f0ba4e18b253da02c5cc862096a3253689986fbf5cd89b835c94c2057f4196d8d278973254fdf6dd07629784bf1dc3bdc7d1ac3bb0682c6f9ad9d21ad'
-            'SKIP'
-            'dcef87087541453549771816401bc4130ad69672d5b771fefb751534b111bbd77286bf46df6211762c9fa27b8b0fe2c055e4572a195b7f4355afa16a23ed4398')
+            'b11b91503c9eb879b79cb16683204f5dbb467aac62dcfc1b025f889dc38016d990c0fd1879210226430e9f9ac6e168439b13603781188d67d213b12a334b4e5b'
+            'SKIP')
 
 prepare() {
     cd "$srcdir/linux-$_basekernel"
