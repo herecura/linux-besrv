@@ -7,7 +7,7 @@ _kernelname=-besrv
 pkgbase="linux$_kernelname"
 pkgname=("linux$_kernelname" "linux$_kernelname-headers")
 _basekernel=4.14
-_patchver=47
+_patchver=48
 pkgrel=1
 arch=('x86_64')
 license=('GPL2')
@@ -49,9 +49,6 @@ fi
 
 # extra patches
 _extrapatches=(
-    '0001-objtool_Fix_noreturn_detection_for_recursive_sibling_calls.patch'
-    '0002-objtool_support_GCC8_cold_subfunctions.patch'
-    '0003-objtool_support_GCC8_switch_tables.patch'
 )
 if [ ${#_extrapatches[@]} -ne 0 ]; then
     source=( "${source[@]}"
@@ -67,11 +64,8 @@ sha512sums=('77e43a02d766c3d73b7e25c4aafb2e931d6b16e870510c22cef0cdb05c3acb7952b
             'f03250e32620071f27d33dbda859958ecbb206f2723a3c14f4f41734435011c87b4809bda558d687393d9fd2665531904f8963f1038f0bf8fb5598adc1d0518e'
             'e7ba6fcf986022ec56614b1acedf1e6ad723ffea12f8bf73741eef317da59f57b9df83e1800ea3e9b2d9e25207e6ac7fe4286927602d82435e1aa6525ceed0dc'
             'c898a80f38c03853bccee184b978ddaaf3c16de0ad1907adc32ac308e7d6b4d82615f743450fc3e7cecdc226e9f5017f4f94aea88da4f47c4de211abbcdbd0af'
-            '8617397002936b43c598350c562cb0dac1d93577b1b1e13478835f554d08289facf2051276db7a3eacfe1bd5aa2e5ffdbe3ba86d05454c6b4e27f42ea8f05945'
-            'SKIP'
-            '5d2ac655af70769167a7627d40ba328148d191551b650f555db19f91f9a962769e5946f655a390947fcee9262410340380cb95786c7325871ed4fdf4cf3e4902'
-            'f09a78a325b8f9f2edafbfea3101a2b4aa22922485c9977583ad5ee044fc821b09c11dda4546cbb9e4c4cf3f0d0d10ca8bf5dc9f1814e1e2c11d8b6caea7c6eb'
-            '2e6bb4b717b5794cbb92711eb3c2b4c0fbb0e055f8ecc5f2129987d027976fc7062a1f1629cafd48d7e1e884f284f41da16f3808b9609aa9ded33109b78ece8b')
+            'f87144768ba221c073f7e1fbdda340c65a7d5de28bdea492c61d8f05eedc54a3f190daa48611ead331755d2a12f8cb704399cd5a762e2227299980fecb372595'
+            'SKIP')
 
 prepare() {
     cd "$srcdir/linux-$_basekernel"
