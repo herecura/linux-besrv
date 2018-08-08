@@ -8,7 +8,8 @@ pkgbase="linux$_kernelname"
 pkgname=("linux$_kernelname" "linux$_kernelname-headers")
 _basekernel=4.14
 _patchver=61
-pkgrel=1
+pkgver=4.14.61
+pkgrel=2
 arch=('x86_64')
 license=('GPL2')
 makedepends=('bc' 'kmod')
@@ -36,20 +37,20 @@ source=(
 )
 
 # revision patches
-if [ ${_patchver} -ne 0 ]; then
+if [[ "$_patchver" =~ ^[0-9]*$ ]]; then
+    if [[ $_patchver -ne 0 ]]; then
     pkgver=$_basekernel.$_patchver
     _patchname="patch-$pkgver"
     source=( "${source[@]}"
         "https://www.kernel.org/pub/linux/kernel/v4.x/${_patchname}.xz"
     )
-else
-    pkgver=$_basekernel
+    fi
 fi
 
-# extra patches
+## extra patches
 _extrapatches=(
 )
-if [ ${#_extrapatches[@]} -ne 0 ]; then
+if [[ ${#_extrapatches[@]} -ne 0 ]]; then
     source=( "${source[@]}"
         "${_extrapatches[@]}"
     )
@@ -59,7 +60,7 @@ sha512sums=('77e43a02d766c3d73b7e25c4aafb2e931d6b16e870510c22cef0cdb05c3acb7952b
             'SKIP'
             'c0dbd9ebcc40c7d9af1baa890dcc6f39420c7a118cbb92fdbcb575da8493189141d64298d412b0ea0121068139f5751f10755eb8890a9b02b813bec07b6662ea'
             '75f580633a48a15efa83e44a2e091ba33e1d615107eb192349b7ff3ea6aec3230f4206795747e238fe015d511125ab78b58571904577dd4eb687bba937ad95a6'
-            '4bd79cd8b10c30a80c6b4c8b4ff173803a69e5af20b4d56cad8e5275547e7d4c5918522fb8e4a71c05a1247c68a2201af389526086b6d77965ad0bd18c95da83'
+            '7762ad6385306dc16c5bd15ffe24caf7c73a1defd594aaf9620039554ce8fb9cf284a6919a8909cbc01a2b9d7b8f88b8fc35f1913a74aca2323c78b804370326'
             'f03250e32620071f27d33dbda859958ecbb206f2723a3c14f4f41734435011c87b4809bda558d687393d9fd2665531904f8963f1038f0bf8fb5598adc1d0518e'
             'e7ba6fcf986022ec56614b1acedf1e6ad723ffea12f8bf73741eef317da59f57b9df83e1800ea3e9b2d9e25207e6ac7fe4286927602d82435e1aa6525ceed0dc'
             '85c73eb30f4cb15b8eeadff19dbe08cb16d1ff0cdb0c0352f8647f4b6eb493fbb6d83b2cb327119ce7e779c7cbdcddab4631dc2f946879a00b66c99afa021bf6'
@@ -69,7 +70,7 @@ prepare() {
     cd "$srcdir/linux-$_basekernel"
 
     # Add revision patches
-    if [ $_patchver -ne 0 ]; then
+    if [[ $_patchver -ne 0 ]]; then
         msg2 "apply $_patchname"
         patch -Np1 -i "$srcdir/$_patchname"
     fi
@@ -87,14 +88,9 @@ prepare() {
     # set configuration
     msg2 "copy configuration"
     cat "$srcdir/config-server.x86_64" >./.config
-    if [ "$_kernelname" != "" ]; then
+    if [[ "$_kernelname" != "" ]]; then
         sed -i "s|CONFIG_LOCALVERSION=.*|CONFIG_LOCALVERSION=\"\U$_kernelname\"|g" ./.config
     fi
-
-    # remove sublevel, this is a server version, needs to be updateable
-    # without rebooting all the time
-    #msg2 "remove sublevel"
-    #sed -e "s|SUBLEVEL = .*|SUBLEVEL = |g" -i Makefile
 
     # set extraversion to pkgrel
     msg2 "set extraversion to $pkgrel"
@@ -150,6 +146,7 @@ package_linux-besrv() {
     install=$pkgname.install
 
     KARCH=x86
+
     cd "$srcdir/linux-$_basekernel"
 
     mkdir -p "$pkgdir"/{lib/modules,lib/firmware,boot,usr}
@@ -213,6 +210,9 @@ package_linux-besrv() {
 package_linux-besrv-headers() {
     pkgdesc="Header files and scripts for building modules for linux$_kernelname"
     provides=('linux-headers')
+
+    KARCH=x86
+
     install -dm755 "$pkgdir/usr/lib/modules/$_kernver"
     cd "$pkgdir/usr/lib/modules/$_kernver"
     ln -sf ../../../src/linux-$_kernver build
@@ -233,6 +233,21 @@ package_linux-besrv-headers() {
         | bsdcpio -pdm "$pkgdir/usr/src/linux-$_kernver"
     install -Dm644 Module.symvers "$pkgdir/usr/src/linux-$_kernver"
 
+    # cleanup other architectures
+    for arch in "$pkgdir/usr/src/linux-$_kernver"/arch/*/; do
+        [[ $arch = */$KARCH/ ]] && continue
+        echo "Removing ./arch/$(basename "$arch")"
+        rm -r "$arch"
+    done
+    for arch in "$pkgdir/usr/src/linux-$_kernver"/tools/perf/arch/*/; do
+        [[ $arch = */$KARCH/ ]] && continue
+        echo "Removing ./tools/perf/arch/$(basename "$arch")"
+        rm -r "$arch"
+    done
+
+    # remove object files
+    find "$pkgdir/usr/src/linux-$_kernver" -type f -name '*.o' -printf 'Removing %P\n' -delete
+
     # add objtool for external module building and enabled VALIDATION_STACK option
     install -Dm755 tools/objtool/objtool \
         "$pkgdir/usr/src/linux-$_kernver/tools/objtool/objtool"
@@ -249,9 +264,14 @@ package_linux-besrv-headers() {
             *application/x-executable*) # Binaries
                 /usr/bin/strip $STRIP_BINARIES "$binary"
                 ;;
+            *application/x-pie-executable*) # Relocatable binaries
+                /usr/bin/strip $STRIP_SHARED "$binary"
+                ;;
         esac
     done
 
+    # "fix" owner
     chown -R root:root "$pkgdir/usr/src/linux-$_kernver"
-    find "$pkgdir/usr/src/linux-$_kernver" -type d -exec chmod 755 {} \;
+    # "fix" permissions
+    chmod -Rc u=rwX,go=rX "$pkgdir"
 }
