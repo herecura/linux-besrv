@@ -2,6 +2,7 @@
 Type = File
 Operation = Install
 Operation = Upgrade
+Target = usr/lib/modules/*-BESRV/*
 Target = usr/lib/modules/*-BESRV-external/*
 
 [Action]
