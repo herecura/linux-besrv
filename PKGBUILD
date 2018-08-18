@@ -7,12 +7,18 @@ _kernelname=-besrv
 pkgbase="linux$_kernelname"
 pkgname=("linux$_kernelname" "linux$_kernelname-headers")
 _basekernel=4.14
-_patchver=64
-pkgver=4.14.64
+_patchver=65
+if [[ $_patchver -ne 0 ]]; then
+    _tag=v${_basekernel}.${_patchver}
+    pkgver=${_basekernel}.${_patchver}
+else
+    _tag=v${_basekernel}
+    pkgver=${_basekernel}
+fi
 pkgrel=1
 arch=('x86_64')
 license=('GPL2')
-makedepends=('bc' 'kmod')
+makedepends=('git' 'bc' 'kmod')
 url="http://www.kernel.org"
 options=(!strip)
 
@@ -22,8 +28,7 @@ validpgpkeys=(
 )
 
 source=(
-    "https://www.kernel.org/pub/linux/kernel/v4.x/linux-${_basekernel}.tar.xz"
-    "https://www.kernel.org/pub/linux/kernel/v4.x/linux-${_basekernel}.tar.sign"
+    "linux-stable::git+https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git#tag=${_tag}?signed"
     # the main kernel config files
     'config-server.x86_64'
     # standard config files for mkinitcpio ramdisk
@@ -36,17 +41,6 @@ source=(
     'sysctl-linux-besrv.conf'
 )
 
-# revision patches
-if [[ "$_patchver" =~ ^[0-9]*$ ]]; then
-    if [[ $_patchver -ne 0 ]]; then
-    pkgver=$_basekernel.$_patchver
-    _patchname="patch-$pkgver"
-    source=( "${source[@]}"
-        "https://www.kernel.org/pub/linux/kernel/v4.x/${_patchname}.xz"
-    )
-    fi
-fi
-
 ## extra patches
 _extrapatches=(
 )
@@ -56,24 +50,16 @@ if [[ ${#_extrapatches[@]} -ne 0 ]]; then
     )
 fi
 
-sha512sums=('77e43a02d766c3d73b7e25c4aafb2e931d6b16e870510c22cef0cdb05c3acb7952b8908ebad12b10ef982c6efbe286364b1544586e715cf38390e483927904d8'
-            'SKIP'
-            'c0dbd9ebcc40c7d9af1baa890dcc6f39420c7a118cbb92fdbcb575da8493189141d64298d412b0ea0121068139f5751f10755eb8890a9b02b813bec07b6662ea'
+sha512sums=('SKIP'
+            '5f2a2954daa3f28c1a3afaa0abf3f38d054464d5536acdf8d3403e174bebfc72c3b24aa5d4241deeda8a6714a011461f034162e8f519ec6c73947151c47a2554'
             '75f580633a48a15efa83e44a2e091ba33e1d615107eb192349b7ff3ea6aec3230f4206795747e238fe015d511125ab78b58571904577dd4eb687bba937ad95a6'
             '7762ad6385306dc16c5bd15ffe24caf7c73a1defd594aaf9620039554ce8fb9cf284a6919a8909cbc01a2b9d7b8f88b8fc35f1913a74aca2323c78b804370326'
             'f03250e32620071f27d33dbda859958ecbb206f2723a3c14f4f41734435011c87b4809bda558d687393d9fd2665531904f8963f1038f0bf8fb5598adc1d0518e'
             'e7ba6fcf986022ec56614b1acedf1e6ad723ffea12f8bf73741eef317da59f57b9df83e1800ea3e9b2d9e25207e6ac7fe4286927602d82435e1aa6525ceed0dc'
-            '85c73eb30f4cb15b8eeadff19dbe08cb16d1ff0cdb0c0352f8647f4b6eb493fbb6d83b2cb327119ce7e779c7cbdcddab4631dc2f946879a00b66c99afa021bf6'
-            '48a53ab2901af447f806cd5ee5055689c5885f205271e25d0c30ac28bdc9b740cb0a14ff1c4f89d972a44a57cfeb3b249179fa7f97c719da87358dd881e333d9')
+            '85c73eb30f4cb15b8eeadff19dbe08cb16d1ff0cdb0c0352f8647f4b6eb493fbb6d83b2cb327119ce7e779c7cbdcddab4631dc2f946879a00b66c99afa021bf6')
 
 prepare() {
-    cd "$srcdir/linux-$_basekernel"
-
-    # Add revision patches
-    if [[ $_patchver -ne 0 ]]; then
-        msg2 "apply $_patchname"
-        patch -Np1 -i "$srcdir/$_patchname"
-    fi
+    cd "$srcdir/linux-stable"
 
     # extra patches
     for patch in ${_extrapatches[@]}; do
@@ -101,15 +87,11 @@ prepare() {
 
     # hack to prevent output kernel from being marked as dirty or git
     msg2 "apply hack to prevent kernel tree being marked dirty"
-    echo "" > "$srcdir/linux-$_basekernel/.scmversion"
-
-    # sync-check does not have executable flag
-    chmod +x tools/objtool/sync-check.sh
-
+    echo "" > "$srcdir/linux-stable/.scmversion"
 }
 
 build() {
-    cd "$srcdir/linux-$_basekernel"
+    cd "$srcdir/linux-stable"
 
     msg2 "prepare"
     make prepare
@@ -147,7 +129,7 @@ package_linux-besrv() {
 
     KARCH=x86
 
-    cd "$srcdir/linux-$_basekernel"
+    cd "$srcdir/linux-stable"
 
     mkdir -p "$pkgdir"/{lib/modules,lib/firmware,boot,usr}
 
@@ -189,9 +171,6 @@ package_linux-besrv() {
     mkdir -p "$pkgdir/lib/modules/$_basekernel$_fldkernelname-external"
     echo "$_kernver" > "$pkgdir/lib/modules/${_basekernel}$_fldkernelname-external/version"
 
-    # gzip all modules
-    find "$pkgdir" -name '*.ko' -exec gzip -9 {}  \;
-
     # Now we call depmod...
     depmod -b "$pkgdir" -F System.map "$_kernver"
 
@@ -216,7 +195,7 @@ package_linux-besrv-headers() {
     install -dm755 "$pkgdir/usr/lib/modules/$_kernver"
     cd "$pkgdir/usr/lib/modules/$_kernver"
     ln -sf ../../../src/linux-$_kernver build
-    cd "$srcdir/linux-$_basekernel"
+    cd "$srcdir/linux-stable"
     install -D -m644 Makefile \
         "$pkgdir/usr/src/linux-$_kernver/Makefile"
     install -D -m644 kernel/Makefile \
