@@ -7,7 +7,7 @@ _kernelname=-besrv
 pkgbase="linux$_kernelname"
 pkgname=("linux$_kernelname" "linux$_kernelname-headers")
 _basekernel=4.14
-_patchver=88
+_patchver=89
 if [[ $_patchver -ne 0 ]]; then
     _tag=v${_basekernel}.${_patchver}
     pkgver=${_basekernel}.${_patchver}
