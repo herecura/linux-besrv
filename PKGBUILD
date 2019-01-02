@@ -6,8 +6,8 @@
 _kernelname=-besrv
 pkgbase="linux$_kernelname"
 pkgname=("linux$_kernelname" "linux$_kernelname-headers")
-_basekernel=4.14
-_patchver=91
+_basekernel=4.19
+_patchver=13
 if [[ $_patchver -ne 0 ]]; then
     _tag=v${_basekernel}.${_patchver}
     pkgver=${_basekernel}.${_patchver}
@@ -51,7 +51,7 @@ if [[ ${#_extrapatches[@]} -ne 0 ]]; then
 fi
 
 sha512sums=('SKIP'
-            'a6ecf9e6fb2860a955229adb9d554e7fc0b65d2d07f40fcbc970c0c8f6d0dea5bd8e61e4405a13ceaab84ae0eff50eff5d4662ca215e4f5c2bb7a5bb01d18469'
+            '3f76ee0ac115757085ef1ad1ffc7468d74b0ea623c02249d07ca1982d48ddae963d134bf8361a741cb662f08ac7a3cd4377a8686c378c08b0335f19a001124a0'
             '75f580633a48a15efa83e44a2e091ba33e1d615107eb192349b7ff3ea6aec3230f4206795747e238fe015d511125ab78b58571904577dd4eb687bba937ad95a6'
             '7762ad6385306dc16c5bd15ffe24caf7c73a1defd594aaf9620039554ce8fb9cf284a6919a8909cbc01a2b9d7b8f88b8fc35f1913a74aca2323c78b804370326'
             'f03250e32620071f27d33dbda859958ecbb206f2723a3c14f4f41734435011c87b4809bda558d687393d9fd2665531904f8963f1038f0bf8fb5598adc1d0518e'
