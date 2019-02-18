@@ -15,7 +15,7 @@ else
     _tag=v${_basekernel}
     pkgver=${_basekernel}
 fi
-pkgrel=1
+pkgrel=2
 arch=('x86_64')
 license=('GPL2')
 makedepends=('git' 'bc' 'kmod')
