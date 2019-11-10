@@ -1,16 +1,19 @@
 # arg 1:  the new package version
 # arg 2:  the old package version
 
-boot_warning() {
-  if findmnt --fstab -uno SOURCE /boot &>/dev/null && ! mountpoint -q /boot; then
-    echo "WARNING: /boot appears to be a separate partition but is not mounted."
-  fi
+vmlinuz_naming_warning() {
+    echo "With linux-besrv >= 4.19.83 we will use the move functionality provided in mkinitcpio 27+"
+    echo "this change however will change the kernel filename from:"
+    echo "/boot/vmlinuz-besrv"
+    echo "TO:"
+    echo "/boot/vmlinuz-linux-besrv"
+    echo "You will have to update your bootloader configuration with these changes"
 }
 
-post_install () {
-  boot_warning
-}
+#post_install () {
+    #vmlinuz_naming_warning
+#}
 
 post_upgrade() {
-  boot_warning
+    vmlinuz_naming_warning
 }
