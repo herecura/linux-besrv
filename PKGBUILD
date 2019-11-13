@@ -7,7 +7,7 @@ _kernelname=-besrv
 pkgbase="linux$_kernelname"
 pkgname=("linux$_kernelname" "linux$_kernelname-headers")
 _basekernel=4.19
-_patchver=83
+_patchver=84
 if [[ $_patchver -ne 0 ]]; then
     _tag=v${_basekernel}.${_patchver}
     pkgver=${_basekernel}.${_patchver}
@@ -15,7 +15,7 @@ else
     _tag=v${_basekernel}
     pkgver=${_basekernel}
 fi
-pkgrel=2
+pkgrel=1
 arch=('x86_64')
 license=('GPL2')
 makedepends=('git' 'bc' 'kmod')
@@ -45,7 +45,7 @@ if [[ ${#_extrapatches[@]} -ne 0 ]]; then
 fi
 
 sha512sums=('SKIP'
-            '409a8fc98a0b7d99f5b9c287e091f96d3e02468e6532c918512002b09cefd2927977e77e61ea6baacdf5c656eef0eff46c12ff92a00b9d73869e1df3cf4d25ee'
+            '340e9c1d933a6fcffe02cf6dd1f82b9fe6bbfee3431bc98b18b19290b084a9b1bd9de4bbf15df142123af373c387ff71dc5d1a58e7442a09ba548e8cd5e8e468'
             '651e94c285cef48e600cf42a66651c71f3a9c7774b16c54936c35e1485a35382777ef84b3f01bf036c95fa141c941eae33867fd605c91e5f8b47617e0c0ef0c3')
 
 prepare() {
