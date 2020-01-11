@@ -15,7 +15,7 @@ else
     _tag=v${_basekernel}
     pkgver=${_basekernel}
 fi
-pkgrel=1
+pkgrel=2
 arch=('x86_64')
 license=('GPL2')
 makedepends=('git' 'bc' 'kmod')
@@ -46,7 +46,7 @@ if [[ ${#_extrapatches[@]} -ne 0 ]]; then
 fi
 
 sha512sums=('SKIP'
-            '193d8a00c6356b92d7f204a97321b716b1c9fbc114a3a7fbca6218d5297b2df4111678b007aea0049c6f1358797795327ef6bf3686f283f0cd3c5fabf654b6f6'
+            '955e573ce656f975c05db3b52869217bea08f3f910b15152d178a595a32644878a954c5cc851b94e529fccf1b51c404d65ae664489f7ecb69529bac83b4b8ba4'
             '651e94c285cef48e600cf42a66651c71f3a9c7774b16c54936c35e1485a35382777ef84b3f01bf036c95fa141c941eae33867fd605c91e5f8b47617e0c0ef0c3')
 
 prepare() {
@@ -85,9 +85,8 @@ build() {
     make prepare
     # load configuration
     # Configure the kernel. Replace the line below with one of your choice.
+    #make nconfig # preferred CLI menu for configuration
     #make menuconfig # CLI menu for configuration
-    #make xconfig # X-based configuration
-    #make oldconfig # using old config from previous kernel version
     # ... or manually edit .config
     ####################
     # stop here
