@@ -7,7 +7,7 @@ _kernelname=-besrv
 pkgbase="linux$_kernelname"
 pkgname=("linux$_kernelname" "linux$_kernelname-headers")
 _basekernel=5.4
-_patchver=31
+_patchver=32
 if [[ $_patchver -ne 0 ]]; then
     _tag=v${_basekernel}.${_patchver}
     pkgver=${_basekernel}.${_patchver}
@@ -46,7 +46,7 @@ if [[ ${#_extrapatches[@]} -ne 0 ]]; then
 fi
 
 sha512sums=('SKIP'
-            '1670168c09f5f0e3214834c1e0111718dda2658cfcaaffcf8878e3039d497ab2874a29a68acf8f0bab214168bdec872fc892072e773ef9fffc7be9b9a540d8e8'
+            '97355d90773337d9cd9b33365dfcec0548692d02dd858f0c28a2e356265cf0d24098ca2ae07123b3d75f9b2affd673654435bec2578852b4ee125235ea42e366'
             '651e94c285cef48e600cf42a66651c71f3a9c7774b16c54936c35e1485a35382777ef84b3f01bf036c95fa141c941eae33867fd605c91e5f8b47617e0c0ef0c3')
 
 prepare() {
