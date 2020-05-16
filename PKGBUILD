@@ -38,6 +38,16 @@ source=(
 
 ## extra patches
 _extrapatches=(
+    '0001-Makefile-disallow-data-races-on-gcc-10-as-well.patch'
+    '0004-drop_monitor-work-around-gcc-10-stringop-overflow-wa.patch'
+    '0005-gcc-10-warnings-fix-low-hanging-fruit.patch'
+    '0007-Stop-the-ad-hoc-games-with-Wno-maybe-initialized.patch'
+    '0008-gcc-10-disable-zero-length-bounds-warning-for-now.patch'
+    '0009-gcc-10-disable-array-bounds-warning-for-now.patch'
+    '0010-gcc-10-disable-stringop-overflow-warning-for-now.patch'
+    '0011-gcc-10-disable-restrict-warning-for-now.patch'
+    '0013-gcc-10-mark-more-functions-__init-to-avoid-section-m.patch'
+    'x86-fix-early-boot-crash-on-gcc-10-next-try.patch'
 )
 if [[ ${#_extrapatches[@]} -ne 0 ]]; then
     source=( "${source[@]}"
