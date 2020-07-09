@@ -1,6 +1,6 @@
 #
 # Automatically generated file; DO NOT EDIT.
-# Linux/x86 5.4.43-1 Kernel Configuration
+# Linux/x86 5.4.51-1 Kernel Configuration
 #
 
 #
@@ -650,6 +650,7 @@ CONFIG_UEFI_CPER=y
 CONFIG_UEFI_CPER_X86=y
 CONFIG_EFI_DEV_PATH_PARSER=y
 CONFIG_EFI_EARLYCON=y
+# CONFIG_EFI_CUSTOM_SSDT_OVERLAYS is not set
 
 #
 # Tegra firmware driver
