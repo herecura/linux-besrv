@@ -109,7 +109,6 @@ package_linux-besrv() {
         'crda: to set the correct wireless channels of your country'
         'linux-firmware: when having some hardware needing special firmware'
     )
-    install=$pkgname.install
 
     cd "$srcdir/linux-stable"
     local kernver="$(<version)"
